@@ -1,0 +1,55 @@
+#Задание 1**
+Напишите функцию, которая классифицирует фильмы из материалов занятия по следующим правилам:
+- оценка 2 и меньше - низкий рейтинг
+- оценка 4 и меньше - средний рейтинг
+- оценка 4.5 и 5 - высокий рейтинг
+
+
+import pandas as pd
+ratings = pd.read_csv('C:\\Users\\Ольга\\Desktop\\ratings.csv')
+ratings.head(7)
+
+average_rating = ratings[['movieId','rating']].groupby('movieId').mean()
+average_rating.sample(10)
+
+def ozenka(ratings):
+    if ratings <= 2:
+        return 'низкий рейтинг'
+    elif ratings <= 4:
+        return'средний рейтинг'
+    else:
+        return'высокий рейтинг'
+
+ratings['classification'] = ratings['rating'].apply(ozenka)
+ratings
+
+#Задание 2
+#Необходимо написать гео-классификатор, который каждой строке сможет выставить географическую принадлежность определенному региону. 
+#Т. е. если поисковый запрос содержит название города региона, то в столбце ‘region’ пишется название этого региона. Если поисковый запрос не содержит названия города, то ставим ‘undefined’.
+
+
+import pandas as pd
+keywords = pd.read_csv('C:\\Users\\Ольга\\Desktop\\keywords.csv')
+keywords.head(2)
+
+geo_data = {
+'Центр': ['москва', 'тула', 'ярославль'],
+'Северо-Запад': ['петербург', 'псков', 'мурманск'],
+'Дальний Восток': ['владивосток', 'сахалин', 'хабаровск']
+}
+
+def geo_classificator(keyword):
+    for region, city_list in geo_data.items():
+        if keyword in city_list:
+            return region
+    else:
+        return 'undefined'
+
+keywords['region'] = keywords['keyword'].apply(geo_classificator)
+keywords[keywords.region != 'undefined']
+
+
+
+
+
+
