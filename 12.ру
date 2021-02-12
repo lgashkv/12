@@ -67,6 +67,12 @@ def geo_classificator(keyword):
             return region
     else:
             return 'undefined' 
-
-
+#Вариант 3
+def geo_classificator(keyword):
+    for region, city_list in geo_data.items():
+        keywords_set = keywords[keywords.keyword.str.contains(city_list)]
+        if keyword in keywords_set:
+            return region
+    else:
+            return 'undefined'  
 
