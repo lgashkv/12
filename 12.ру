@@ -38,18 +38,35 @@ geo_data = {
 'Дальний Восток': ['владивосток', 'сахалин', 'хабаровск']
 }
 
+geo_data = {
+'Центр': ['москва', 'тула', 'ярославль'],
+'Северо-Запад': ['петербург', 'псков', 'мурманск'],
+'Дальний Восток': ['владивосток', 'сахалин', 'хабаровск']
+}
+
 def geo_classificator(keyword):
+    keywords_set = row['keyword']
     for region, city_list in geo_data.items():
-        if keyword in city_list:
+        if keywords_set in city_list:
             return region
     else:
-        return 'undefined'
+        return 'undefined'  
 
 keywords['region'] = keywords['keyword'].apply(geo_classificator)
 keywords[keywords.region != 'undefined']
 
 
+#Вариант 2
 
+spisok = (str)
+ 
+def geo_classificator(keyword):
+    for region, city_list in geo_data.items():
+        spisok = ' '.join(city_list)       
+        if keyword in spisok:
+            return region
+    else:
+            return 'undefined' 
 
 
 
